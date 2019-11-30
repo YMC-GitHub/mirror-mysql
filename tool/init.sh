@@ -49,7 +49,6 @@ function add_dockerignore() {
 .git
 LICENSE
 README.md
-tool/
 EOF
     )
     TXT=$(echo "$TXT" | sed "s/^ *#.*//g" | sed "/^$/d")
