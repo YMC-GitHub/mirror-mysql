@@ -19,32 +19,33 @@ function add_dockerfile() {
         cat <<EOF
 # base mysql image with alpine
 # 基础镜像
-#todo :3.7,3.8,3.10
-FROM alpine:3.7.3
+#FROM alpine:3.7.3
+FROM alpine:3.9.4
 #FROM reg.qiniu.com/library/alpine:3.8
 # 维护作者
 LABEL MAINTAINER="${author} <${email}>"
 ENV TIMEZONE Asia/Shanghai
 # 工作目录
-WORKDIR /app/shell/install-mysql
+WORKDIR /app
 
 # 挂载目录
-VOLUME [ "/var/lib/mysql" ]
+VOLUME [ "/app" ]
 # 拷贝脚本
-COPY startup.sh ./startup.sh
+COPY startup.sh /startup.sh
 # 安装软件mysql+清除安装记录+创建用户+创建小组
-RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/* && addgroup mysql mysql
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk add --update mysql mysql-client && rm -f /var/cache/apk/* && addgroup mysql mysql
 # 拷贝配置mysql
 COPY my.cnf /etc/mysql/my.cnf
 # 暴露端口
 EXPOSE 3306
 # 启动脚本
-CMD ["./startup.sh"]
+CMD ["/startup.sh"]
 EOF
     )
     TXT=$(echo "$TXT" | sed "s/^ *#.*//g" | sed "/^$/d")
     echo "$TXT"
 }
+
 function add_dockerignore() {
     local TXT=
     TXT=$(
