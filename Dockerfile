@@ -1,9 +1,10 @@
 FROM alpine:3.9.4
-MAINTAINER ymc-github <yemiancheng@gmail.com>
-WORKDIR /app
-VOLUME /app
-COPY startup.sh /startup.sh
-RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
+LABEL MAINTAINER="ymc-github <yemiancheng@gmail.com>"
+ENV TIMEZONE Asia/Shanghai
+WORKDIR /app/shell/install-mysql
+VOLUME [ "/var/lib/mysql" ]
+COPY startup.sh ./startup.sh
+RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/* && addgroup mysql mysql
 COPY my.cnf /etc/mysql/my.cnf
 EXPOSE 3306
-CMD ["/startup.sh"]
+CMD ["./startup.sh"]

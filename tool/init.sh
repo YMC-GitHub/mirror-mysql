@@ -19,24 +19,27 @@ function add_dockerfile() {
         cat <<EOF
 # base mysql image with alpine
 # 基础镜像
+#todo :3.7,3.8,3.10
 FROM alpine:3.9.4
 #FROM reg.qiniu.com/library/alpine:3.8
 # 维护作者
-MAINTAINER ${author} <${email}>
+LABEL MAINTAINER="${author} <${email}>"
+ENV TIMEZONE Asia/Shanghai
 # 工作目录
-WORKDIR /app
+WORKDIR /app/shell/install-mysql
+
 # 挂载目录
-VOLUME /app
+VOLUME [ "/var/lib/mysql" ]
 # 拷贝脚本
-COPY startup.sh /startup.sh
-# 安装软件mysql+清除安装记录
-RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
+COPY startup.sh ./startup.sh
+# 安装软件mysql+清除安装记录+创建用户+创建小组
+RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/* && addgroup mysql mysql
 # 拷贝配置mysql
 COPY my.cnf /etc/mysql/my.cnf
 # 暴露端口
 EXPOSE 3306
 # 启动脚本
-CMD ["/startup.sh"]
+CMD ["./startup.sh"]
 EOF
     )
     TXT=$(echo "$TXT" | sed "s/^ *#.*//g" | sed "/^$/d")
@@ -49,6 +52,7 @@ function add_dockerignore() {
 .git
 LICENSE
 README.md
+tool/
 EOF
     )
     TXT=$(echo "$TXT" | sed "s/^ *#.*//g" | sed "/^$/d")
@@ -152,7 +156,6 @@ function add_gitignore() {
     local TXT=
     TXT=$(
         cat <<EOF
-tool/
 mysql
 EOF
     )
