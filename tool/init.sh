@@ -157,6 +157,8 @@ function add_gitignore() {
     TXT=$(
         cat <<EOF
 mysql
+tool/hub_list.txt
+tool/img_list.txt
 EOF
     )
     TXT=$(echo "$TXT" | sed "s/^ *#.*//g" | sed "/^$/d")
