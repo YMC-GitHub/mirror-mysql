@@ -20,7 +20,7 @@ function add_dockerfile() {
 # base mysql image with alpine
 # 基础镜像
 #todo :3.7,3.8,3.10
-FROM alpine:3.9.4
+FROM alpine:3.7.3
 #FROM reg.qiniu.com/library/alpine:3.8
 # 维护作者
 LABEL MAINTAINER="${author} <${email}>"
@@ -183,8 +183,8 @@ function main_fun() {
     TXT=$(echo "$TXT" | sed "s/^ *#.*//g" | sed "/^$/d")
     echo "$TXT" >"$file"
 
-    file="$path/my.conf"
-    echo "gen my.conf :$file"
+    file="$path/my.cnf"
+    echo "gen my.cnf :$file"
     TXT=$(add_myconf)
     TXT=$(echo "$TXT" | sed "s/^ *#.*//g" | sed "/^$/d")
     echo "$TXT" >"$file"
@@ -212,3 +212,6 @@ main_fun
 
 #### usage
 #./tool/init.sh
+
+#https://github.com/search?q=alpine+mysql&type=Repositories
+#https://hub.docker.com/_/mysql/
