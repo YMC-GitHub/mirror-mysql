@@ -26,28 +26,28 @@ docker container rm --force --volumes mysql-alpine-3.10.3
 #select a table with:
 #use mysql;
 
-run image with:
+#run image with:
 docker run -v /mysql/data/:/var/lib/mysql -d -p 3306:3306 --name mysql-alpine-3.9.4 mysql:alpine-3.9.4
-see cm logs with:
+#see cm logs with:
 docker container logs mysql-alpine-3.9.4
-go into cm with:
+#go into cm with:
 docker exec -it mysql-alpine-3.9.4 /bin/sh
-exit cm with:
+#exit cm with:
 exit
-stop cm with:
+#stop cm with:
 docker container stop mysql-alpine-3.9.4
-delete cm with:
+#delete cm with:
 docker container rm --force --volumes mysql-alpine-3.9.4
 
-run image with:
+#run image with:
 docker run -v /mysql/data/:/var/lib/mysql -d -p 3306:3306 --name mysql-alpine-3.8.4 mysql:alpine-3.8.4
-see cm logs with:
+#see cm logs with:
 docker container logs mysql-alpine-3.8.4
-go into cm with:
+#go into cm with:
 docker exec -it mysql-alpine-3.8.4 /bin/sh
-exit cm with:
+#exit cm with:
 exit
-stop cm with:
+#stop cm with:
 docker container stop mysql-alpine-3.8.4
-delete cm with:
+#delete cm with:
 docker container rm --force --volumes mysql-alpine-3.8.4
