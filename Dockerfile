@@ -1,4 +1,4 @@
-FROM alpine:3.9.4
+FROM alpine:3.7.3
 LABEL MAINTAINER="ymc-github <yemiancheng@gmail.com>"
 ENV TIMEZONE Asia/Shanghai
 WORKDIR /app/shell/install-mysql
