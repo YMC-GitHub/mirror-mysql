@@ -158,14 +158,14 @@ function push_one() {
 
     #打标
     echo "tag image $id to $tag ..."
-    #docker tag "$id" "$tag"
+    docker tag "$id" "$tag"
 
     #登录
     echo "docker login --username=\"$owner\" --password=\"$pass\" \"$repo\""
-    #docker login --username="$owner" --password="$pass" "$repo" >/dev/null 2>&1
+    docker login --username="$owner" --password="$pass" "$repo" >/dev/null 2>&1
     #推送
     echo "push image $tag ..."
-    #docker push "$tag"
+    docker push "$tag"
 }
 ### func-usage
 # push_one
