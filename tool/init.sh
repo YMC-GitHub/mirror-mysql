@@ -179,7 +179,7 @@ it will test image mysql:alpine-3.8.4 and mysql:alpine-3.9.4 .
 tag and push the image to some docker hub ,eg. docker hub ,aliyun,qiniu ...
 \`\`\`
 img_ns=yemiancheng
-./tool/push.sh "$img_ns"
+./tool/push.sh "\$img_ns"
 \`\`\`
 
 it will tag image for docker hub registry.cn-hangzhou.aliyuncs.com ,so there will be:
