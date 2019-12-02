@@ -144,7 +144,7 @@ function push_one() {
     parse_hub_list_val $(get_hub_by_key "$hub")
     echo "gen tag for repo ..."
     parse_img_list_val $(get_img_by_key "$img")
-    tag=$(get_tag "$repo" "yemiancheng" "$name" "$label")
+    tag=$(get_tag "$repo" "$img_ns" "$name" "$label")
     #echo "$tag"
     id=$(get_image_id "$name" "$label")
 
@@ -266,6 +266,10 @@ img_list=$(cat $THIS_FILE_PATH/img_list.txt)
 name=
 label=
 id=
+img_ns=yemiancheng
+if [ -n "${1}" ]; then
+    img_ns="${1}"
+fi
 
 #init_hub_list_dic
 #get_hub_by_key
@@ -279,3 +283,4 @@ main_fun
 
 ### file-usage
 # ./tool/push.sh
+# ./tool/push.sh "yemiancheng"
