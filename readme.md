@@ -96,8 +96,8 @@ or your can run with k8s .
 
 ## building log
 
-#2019-12-02 10:19:59
-ok:mysql-10.1.41-alpine-3.7.3
-ok:mysql-10.2.26-alpine-3.8.4
-ok:mysql-10.3.17-alpine-3.9.4
+
 ok:mysql-10.3.18-alpine-3.10.3
+ok:mysql-10.3.17-alpine-3.9.4
+ok:mysql-10.2.26-alpine-3.8.4
+ok:mysql-10.1.41-alpine-3.7.3

@@ -142,12 +142,15 @@ registry.cn-hangzhou.aliyuncs.com=xxx=xxx
  EOF
 \`\`\`
 
+
+\`\`\`
 cat >tool/img_list.txt <<EOF
 #name-label=name-label
 mysql-alpine-3.8.4=mysql-alpine-3.8.4
 mysql-alpine-3.9.4=mysql-alpine-3.9.4
 #mysql-alpine-3.10.3=mysql-alpine-3.10.3
  EOF
+\`\`\`
 
 
 ### build image
@@ -164,9 +167,9 @@ registry.cn-hangzhou.aliyuncs.com/mysql:alpine-3.8.4
 registry.cn-hangzhou.aliyuncs.com/mysql:alpine-3.9.4
 \`\`\`
 
-the mysql:alpine-3.10.3 will not be build since with \`#\` comment.
+the mysql:alpine-3.10.3 will not be build with \`#\` comment.
 
-the hub.docker.com will not be tag since with \`#\` comment.
+the hub.docker.com will not be tag with \`#\` comment.
 
 
 ### test image
@@ -222,10 +225,13 @@ or your can run with docker-compose ,
 or your can run with k8s .
 
 ## building log
+
+\`\`\`
 ok:mysql-10.3.18-alpine-3.10.3
 ok:mysql-10.3.17-alpine-3.9.4
 ok:mysql-10.2.26-alpine-3.8.4
 ok:mysql-10.1.41-alpine-3.7.3
+\`\`\`
 
 EOF
     )
