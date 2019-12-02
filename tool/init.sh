@@ -7,6 +7,7 @@ THIS_FILE_PATH=$(
 source $THIS_FILE_PATH/function-list.sh
 THIS_PROJECT_PATH=$(path_resolve "$THIS_FILE_PATH" "../")
 RUN_SCRIPT_PATH=$(pwd)
+buildlogfile=$THIS_PROJECT_PATH/tool/build-log.txt
 
 function add_dockerfile() {
     local author=
@@ -120,9 +121,11 @@ function add_readme() {
     local author=
     local email=
     local TXT=
+    local TXT=
+    local temp=
     author=ymc-github
     email=yemiancheng@gmail.com
-    local TXT=
+    temp=$(cat $buildlogfile)
     TXT=$(
         cat <<EOF
 # alpine-mysql
@@ -227,10 +230,7 @@ or your can run with k8s .
 ## building log
 
 \`\`\`
-ok:mysql-10.3.18-alpine-3.10.3
-ok:mysql-10.3.17-alpine-3.9.4
-ok:mysql-10.2.26-alpine-3.8.4
-ok:mysql-10.1.41-alpine-3.7.3
+$temp
 \`\`\`
 
 EOF
