@@ -34,16 +34,7 @@ build the image with your config
 
 it will build image mysql:alpine-3.8.4 and mysql:alpine-3.9.4 .
 
-then tag image for docker hub registry.cn-hangzhou.aliyuncs.com ,so there will be:
-```
-registry.cn-hangzhou.aliyuncs.com/mysql:alpine-3.8.4
-registry.cn-hangzhou.aliyuncs.com/mysql:alpine-3.9.4
-```
-
 the mysql:alpine-3.10.3 will not be build with `#` comment.
-
-the hub.docker.com will not be tag with `#` comment.
-
 
 ### test image
 test the image you build
@@ -55,19 +46,30 @@ it will test image mysql:alpine-3.8.4 and mysql:alpine-3.9.4 .
 
 ### push image
 
-push the image to some docker hub ,eg. docker hub ,aliyun,qiniu ...
+tag and push the image to some docker hub ,eg. docker hub ,aliyun,qiniu ...
 ```
 img_ns=yemiancheng
-./tool/push.sh "$img_ns"
+./tool/push.sh ""
 ```
+
+it will tag image for docker hub registry.cn-hangzhou.aliyuncs.com ,so there will be:
+```
+registry.cn-hangzhou.aliyuncs.com/yemiancheng/mysql:alpine-3.8.4
+registry.cn-hangzhou.aliyuncs.com/yemiancheng/mysql:alpine-3.9.4
+```
+
+the hub.docker.com will not be taged with `#` comment.
+
 
 it will push image :
 ```
-registry.cn-hangzhou.aliyuncs.com/mysql:alpine-3.8.4
-registry.cn-hangzhou.aliyuncs.com/mysql:alpine-3.9.4
+registry.cn-hangzhou.aliyuncs.com/yemiancheng/mysql:alpine-3.8.4
+registry.cn-hangzhou.aliyuncs.com/yemiancheng/mysql:alpine-3.9.4
 ```
 
-so that you need to set pass in tool/hub_list.txt . and for secure dont let other know it.
+the hub.docker.com will not be pushed with `#` comment.
+
+so that you need to set pass in tool/hub_list.txt . and for secure dont let other person know it.
 
 ## how to use with production ?
 
