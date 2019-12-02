@@ -115,22 +115,36 @@ function main_func() {
         build_image "$name" "$label"
         # 测试镜像
         #echo "run image to test with docker run -it --rm --name $name-$label $name:$label"
-        echo "#run image with:" >>$testfile
-        echo "docker run -v /mysql/data/:/var/lib/mysql -d -p 3306:3306 --name $name-$label $name:$label" >>$testfile
-        echo "sleep 20" >>$testfile
-        echo "#see cm logs with:" >>$testfile
-        echo "docker container logs $name-$label" >>$testfile
-        echo "ver=\$(docker container logs $name-$label|grep \"-MariaDB-log\"| sed \"/s/-MariaDB-log.*//\" | sed \"/s/Version: '//\")" >>$testfile
-        echo "if [ $? -eq 0 ];then echo \"$name-$ver-$label\" ; fi >> \$logfile" >>$testfile
+        echo "gen image tool/debug.sh file..."
+        txt=$(
+            cat <<EOF
+#run image with:
+echo "run image ..."
+docker run -v /mysql/data/:/var/lib/mysql -d -p 3306:3306 --name $name-$label $name:$label
+sleep 30
+#see cm logs with:
+echo "get cm log ..."
+docker container logs $name-$label >/dev/null > \$tpmfile 2>&1
+ver=\$(cat \$tpmfile |grep "Version: "| sed "s/MariaDB.*//" | sed "s/Version: '//" | sed "s/^-//" | sed "s/-$//")
+if [ \$? -eq 0 ];then info="$name-\$ver-$label" ;echo \$info;echo \$info >> \$logfile ; fi
+ver=\$(cat \$tpmfile | grep "Password: " | sed "s/.*Password: //")
+if [ \$? -eq 0 ]; then echo "MySQL root Password: \$ver"; fi
+echo "you can see cm logs with:"
+echo "docker container logs $name-$label"
+#go into cm with:
+#docker exec -it $name-$label /bin/sh
+#exit cm with:
+#exit
+#stop cm with:
+echo "stop cm ..."
+docker container stop $name-$label
+echo "delete cm ..."
+#delete cm with:
+docker container rm --force --volumes $name-$label
 
-        echo "#go into cm with:" >>$testfile
-        echo "#docker exec -it $name-$label /bin/sh" >>$testfile
-        echo "#exit cm with:" >>$testfile
-        echo "#exit" >>$testfile
-        echo "#stop cm with:" >>$testfile
-        echo "docker container stop $name-$label" >>$testfile
-        echo "#delete cm with:" >>$testfile
-        echo "docker container rm --force --volumes $name-$label" >>$testfile
+EOF
+        )
+        #echo "$txt" >>$testfile
     done
 }
 

@@ -1,0 +1,52 @@
+[i] MySQL data directory not found, creating initial DBs
+Initializing database
+2019-12-02  2:19:27 6 [Warning] Failed to load slave replication state from table mysql.gtid_slave_pos: 1017: Can't find file: './mysql/' (errno: 2 "No such file or directory")
+Database initialized
+[i] MySQL root Password: 1a758a
+[i] Create temp file: /tmp/tmp.KaJEIE
+[i] setting connect from remote with user root and pass 1a758a
+[i] setting connect from local with user root and none pass
+[i] run tempfile: /tmp/tmp.KaJEIE
+2019-12-02  2:19:29 0 [Note] /usr/bin/mysqld (mysqld 10.3.18-MariaDB-log) starting as process 74 ...
+2019-12-02  2:19:29 0 [Note] InnoDB: Using Linux native AIO
+2019-12-02  2:19:29 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+2019-12-02  2:19:29 0 [Note] InnoDB: Uses event mutexes
+2019-12-02  2:19:29 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2019-12-02  2:19:29 0 [Note] InnoDB: Number of pools: 1
+2019-12-02  2:19:29 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2019-12-02  2:19:29 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+2019-12-02  2:19:29 0 [Note] InnoDB: Completed initialization of buffer pool
+2019-12-02  2:19:29 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+2019-12-02  2:19:29 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+2019-12-02  2:19:29 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2019-12-02  2:19:29 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2019-12-02  2:19:29 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+2019-12-02  2:19:29 0 [Note] InnoDB: Waiting for purge to start
+2019-12-02  2:19:29 0 [Note] InnoDB: 10.3.18 started; log sequence number 1630815; transaction id 21
+2019-12-02  2:19:29 0 [Note] InnoDB: Loading buffer pool(s) from /app/mysql/ib_buffer_pool
+2019-12-02  2:19:29 0 [Note] InnoDB: Buffer pool(s) load completed at 191202  2:19:29
+2019-12-02  2:19:29 0 [Note] Plugin 'FEEDBACK' is disabled.
+[i] sleeping 5 sec
+[i] start running mysqld
+2019-12-02  2:19:36 0 [Note] /usr/bin/mysqld (mysqld 10.3.18-MariaDB-log) starting as process 1 ...
+2019-12-02  2:19:36 0 [Note] InnoDB: Using Linux native AIO
+2019-12-02  2:19:36 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+2019-12-02  2:19:36 0 [Note] InnoDB: Uses event mutexes
+2019-12-02  2:19:36 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2019-12-02  2:19:36 0 [Note] InnoDB: Number of pools: 1
+2019-12-02  2:19:36 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2019-12-02  2:19:36 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+2019-12-02  2:19:36 0 [Note] InnoDB: Completed initialization of buffer pool
+2019-12-02  2:19:36 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+2019-12-02  2:19:36 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+2019-12-02  2:19:36 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2019-12-02  2:19:36 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2019-12-02  2:19:36 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+2019-12-02  2:19:36 0 [Note] InnoDB: 10.3.18 started; log sequence number 1630824; transaction id 21
+2019-12-02  2:19:36 0 [Note] InnoDB: Loading buffer pool(s) from /app/mysql/ib_buffer_pool
+2019-12-02  2:19:36 0 [Note] InnoDB: Buffer pool(s) load completed at 191202  2:19:36
+2019-12-02  2:19:36 0 [Note] Plugin 'FEEDBACK' is disabled.
+2019-12-02  2:19:36 0 [Note] Reading of all Master_info entries succeeded
+2019-12-02  2:19:36 0 [Note] Added new Master_info '' to hash table
+2019-12-02  2:19:36 0 [Note] /usr/bin/mysqld: ready for connections.
+Version: '10.3.18-MariaDB-log'  socket: '/run/mysqld/mysqld.sock'  port: 0  MariaDB Server

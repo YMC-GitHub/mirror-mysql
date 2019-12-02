@@ -1,4 +1,5 @@
-mysql--alpine-3.7.3
-mysql--alpine-3.7.3
-mysql--alpine-3.7.3
-mysql--alpine-3.7.3
+
+mysql-10.1.41-alpine-3.7.3
+mysql-10.2.26-alpine-3.8.4
+mysql-10.3.17-alpine-3.9.4
+mysql-10.3.18-alpine-3.10.3
