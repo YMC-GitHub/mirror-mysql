@@ -20,7 +20,8 @@ function add_dockerfile() {
 # base mysql image with alpine
 # 基础镜像
 #FROM alpine:3.7.3
-FROM alpine:3.9.4
+#FROM alpine:3.9.4
+FROM alpine:3.10.4
 #FROM reg.qiniu.com/library/alpine:3.8
 # 维护作者
 LABEL MAINTAINER="${author} <${email}>"
