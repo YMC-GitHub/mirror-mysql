@@ -7,6 +7,7 @@ on:
       - "Dockerfile-alpine"
       - "scripts/setup-alpine-*.sh"
       - "sql-init/*.sql"
+      - ".github/workflows/docker-publish-alpine.yml"
   workflow_dispatch:  # 支持手动触发
 env:
   REGISTRY: ${{ secrets.DOCKER_REGISTRY || 'docker.io' }}
@@ -53,9 +54,9 @@ jobs:
           cache-to: type=gha,mode=max
           platforms: linux/amd64
 
-      - name: Create Latest Tag
-        if: matrix.network == 'global' || matrix.network == 'cn'
-        run: |
-          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-alpine
-          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-alpine ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-latest
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-latest
+      # - name: Create Latest Tag
+      #   if: matrix.network == 'global' || matrix.network == 'cn'
+      #   run: |
+      #     docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-alpine
+      #     docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-alpine ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-latest
+      #     docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-latest
