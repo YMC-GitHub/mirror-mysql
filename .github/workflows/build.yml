@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        alpine_version: [3.18, 3.19]
+        alpine_version: [3.17, 3.18, 3.19, 3.20]  # 支持更多 Alpine 版本
         network: ["global", "cn"]
         os: ["alpine"]
     env:
@@ -31,8 +31,12 @@ jobs:
       - name: Build images for os and os_version (alpine)
         if: matrix.os  == 'alpine'
         run: |
-          docker build --build-arg ALPINE_VERSION=$os_version -t $ns/mysql:$os_version-$os -f Dockerfile-alpine .
-          docker build --build-arg ALPINE_VERSION=$os_version --build-arg NETWORK_REGION=$network -t $ns/mysql:$os_version-$os-$network -f Dockerfile-alpine .
+          # 构建 {network-info}-{os-info} 标签
+          docker build --build-arg ALPINE_VERSION=$os_version -t $ns/mysql:$network-$os -f Dockerfile-alpine .
+          # 构建 {network-info}-{os-info}{os_version} 标签
+          docker build --build-arg ALPINE_VERSION=$os_version -t $ns/mysql:$network-$os$os_version -f Dockerfile-alpine .
+          # 构建 {os-info}{os_version} 标签
+          docker build --build-arg ALPINE_VERSION=$os_version -t $ns/mysql:$os$os_version -f Dockerfile-alpine .
         env:
           os_version: ${{ matrix.alpine_version }}
           os: ${{ matrix.os }}
@@ -41,14 +45,18 @@ jobs:
       - name: Build images with default OS
         if: ${{ matrix.os == env.default_os }}
         run: |
-          docker build --build-arg ALPINE_VERSION=$os_version -t $ns/mysql:$os_version -f Dockerfile-alpine .
+          # 构建 {network-info} 标签
+          docker build --build-arg ALPINE_VERSION=$os_version -t $ns/mysql:$network -f Dockerfile-alpine .
+          # 构建 {os-info} 标签
+          docker build --build-arg ALPINE_VERSION=$os_version -t $ns/mysql:$os -f Dockerfile-alpine .
         env:
           os_version: ${{ matrix.alpine_version }}
 
       - name: Test images
         run: |
-          docker run $ns/mysql:$os_version-$os echo done
-          docker run $ns/mysql:$os_version-$os-$network echo done
+          docker run $ns/mysql:$network-$os echo done
+          docker run $ns/mysql:$network-$os$os_version echo done
+          docker run $ns/mysql:$os$os_version echo done
         env:
           os_version: ${{ matrix.alpine_version }}
           os: ${{ matrix.os }}
@@ -57,7 +65,8 @@ jobs:
       - name: Test images with default OS
         if: ${{ matrix.os == env.default_os }}
         run: |
-          docker run $ns/mysql:$os_version echo done
+          docker run $ns/mysql:$network echo done
+          docker run $ns/mysql:$os echo done
         env:
           os_version: ${{ matrix.alpine_version }}
 
@@ -68,16 +77,20 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # - name: Publish images
-      #   run: |
-      #     docker push $ns/mysql:$os_version-$os
-      #   env:
-      #     os_version: ${{ matrix.alpine_version }}
-      #     os: ${{ matrix.os }}
+      - name: Publish images
+        run: |
+          docker push $ns/mysql:$network-$os
+          docker push $ns/mysql:$network-$os$os_version
+          docker push $ns/mysql:$os$os_version
+        env:
+          os_version: ${{ matrix.alpine_version }}
+          os: ${{ matrix.os }}
+          network: ${{ matrix.network }}
 
-      # - name: Publish images with default OS
-      #   if: ${{ matrix.os == env.default_os }}
-      #   run: |
-      #     docker push $ns/mysql:$os_version
-      #   env:
-      #     os_version: ${{ matrix.alpine_version }}
+      - name: Publish images with default OS
+        if: ${{ matrix.os == env.default_os }}
+        run: |
+          docker push $ns/mysql:$network
+          docker push $ns/mysql:$os
+        env:
+          os_version: ${{ matrix.alpine_version }}
