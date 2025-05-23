@@ -15,10 +15,10 @@ env:
 
 jobs:
   build-publish:
-    runs-on: ubuntu-latest·
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        variant: ["global", "cn"]
+        network: ["global", "cn"]
     steps:
       - uses: actions/checkout@v4
 
@@ -41,17 +41,17 @@ jobs:
           file: Dockerfile-alpine  # 显式指定 Dockerfile-alpine
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-alpine
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-$(date +%Y%m%d)
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-alpine
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-$(date +%Y%m%d)
           build-args: |
-            NETWORK_REGION=${{ matrix.variant }}
+            NETWORK_REGION=${{ matrix.network }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64,linux/arm64
 
       - name: Create Latest Tag
-        if: matrix.variant == 'global' || matrix.variant == 'cn'
+        if: matrix.network == 'global' || matrix.network == 'cn'
         run: |
-          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-alpine
-          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-alpine ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-latest
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-latest
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-alpine
+          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-alpine ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-latest
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-latest
