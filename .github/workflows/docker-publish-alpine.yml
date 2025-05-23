@@ -34,6 +34,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # - name: Get current date
+      #   id: get-date
+      #   run: echo "date=$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+
       - name: Build and Push
         uses: docker/build-push-action@v4
         with:
@@ -42,7 +46,7 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-alpine
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-$(date +%Y%m%d)
+            # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-${{ steps.get-date.outputs.date }}
           build-args: |
             NETWORK_REGION=${{ matrix.network }}
           cache-from: type=gha
