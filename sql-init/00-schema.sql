@@ -1,0 +1,23 @@
+-- 创建数据库（如果不存在）
+CREATE DATABASE IF NOT EXISTS `app_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE `app_db`;
+
+-- 用户表
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 订单表
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL,
+  `amount` DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
