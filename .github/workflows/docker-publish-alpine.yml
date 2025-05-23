@@ -1,0 +1,56 @@
+name: Publish Alpine MySQL Images
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "Dockerfile-alpine"
+      - "scripts/setup-alpine-*.sh"
+      # - "sql-init/**"
+
+env:
+  REGISTRY: ${{ secrets.DOCKER_REGISTRY || 'docker.io' }}
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.MYSQL_ALPINE_IMAGE_NAME || 'mysql' }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+jobs:
+  build-publish:
+    runs-on: ubuntu-latest·
+    strategy:
+      matrix:
+        variant: ["global", "cn"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          platforms: linux/amd64,linux/arm64
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-alpine
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-$(date +%Y%m%d)
+          build-args: |
+            NETWORK_REGION=${{ matrix.variant }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+
+      - name: Create Latest Tag
+        if: matrix.variant == 'global' || matrix.variant == 'cn'
+        run: |
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-alpine
+          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-alpine ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-latest
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.variant }}-latest
