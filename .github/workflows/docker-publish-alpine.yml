@@ -6,8 +6,8 @@ on:
     paths:
       - "Dockerfile-alpine"
       - "scripts/setup-alpine-*.sh"
-      # - "sql-init/**"
-
+      - "sql-init/*.sql"
+  workflow_dispatch:  # 支持手动触发
 env:
   REGISTRY: ${{ secrets.DOCKER_REGISTRY || 'docker.io' }}
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.MYSQL_ALPINE_IMAGE_NAME || 'mysql' }}
