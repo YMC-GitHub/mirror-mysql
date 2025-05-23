@@ -1,0 +1,33 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 标题 -->
+  <text x="10" y="30" font-size="20" font-weight="bold">MySQL 数据初始化流程</text>
+
+  <!-- 流程步骤 -->
+  <rect x="50" y="60" width="200" height="50" rx="10" ry="10" fill="#4CAF50" />
+  <text x="60" y="90" fill="white">1. 启动容器</text>
+
+  <rect x="50" y="130" width="200" height="50" rx="10" ry="10" fill="#2196F3" />
+  <text x="60" y="160" fill="white">2. 执行启动脚本</text>
+
+  <rect x="50" y="200" width="200" height="50" rx="10" ry="10" fill="#FFC107" />
+  <text x="60" y="230" fill="black">3. 初始化用户和目录</text>
+
+  <rect x="50" y="270" width="200" height="50" rx="10" ry="10" fill="#9C27B0" />
+  <text x="60" y="300" fill="white">4. 初始化数据库</text>
+
+  <rect x="50" y="340" width="200" height="50" rx="10" ry="10" fill="#E91E63" />
+  <text x="60" y="370" fill="white">5. 执行 SQL 文件</text>
+
+  <!-- 连接线 -->
+  <line x1="150" y1="110" x2="150" y2="130" stroke="#000" stroke-width="2" />
+  <line x1="150" y1="180" x2="150" y2="200" stroke="#000" stroke-width="2" />
+  <line x1="150" y1="250" x2="150" y2="270" stroke="#000" stroke-width="2" />
+  <line x1="150" y1="320" x2="150" y2="340" stroke="#000" stroke-width="2" />
+
+  <!-- 流程说明 -->
+  <text x="300" y="90" font-size="14">容器启动，执行 `setup-alpine-mysql-entrypoint.sh`</text>
+  <text x="300" y="160" font-size="14">初始化 MySQL 用户、组和目录</text>
+  <text x="300" y="230" font-size="14">初始化数据库结构和权限</text>
+  <text x="300" y="300" font-size="14">执行 `/docker-entrypoint-initdb.d/` 中的 SQL 文件</text>
+  <text x="300" y="370" font-size="14">完成数据初始化，启动 MySQL 服务</text>
+</svg>

@@ -1,0 +1,70 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" style="background-color:#f5f7fa;font-family:Arial,sans-serif">
+  <!-- 标题 -->
+  <rect x="0" y="0" width="1280" height="80" fill="#2d3748" />
+  <text x="640" y="50" font-size="28" fill="white" text-anchor="middle" font-weight="bold">Docker工具链对比指南</text>
+  
+  <!-- 对比总结表格 -->
+  <rect x="40" y="100" width="1200" height="300" rx="10" fill="white" stroke="#e2e8f0" stroke-width="2"/>
+  
+  <!-- 表头 -->
+  <rect x="40" y="100" width="1200" height="60" fill="#4a5568" rx="10" />
+  <text x="100" y="140" font-size="18" fill="white" font-weight="bold">工具</text>
+  <text x="350" y="140" font-size="18" fill="white" font-weight="bold">适用规模</text>
+  <text x="550" y="140" font-size="18" fill="white" font-weight="bold">复杂度</text>
+  <text x="750" y="140" font-size="18" fill="white" font-weight="bold">关键优势</text>
+  <text x="1050" y="140" font-size="18" fill="white" font-weight="bold">局限性</text>
+  
+  <!-- 表格内容 -->
+  <!-- Docker -->
+  <rect x="40" y="160" width="1200" height="60" fill="#f7fafc" />
+  <text x="100" y="195" font-size="16" fill="#2d3748" font-weight="bold">Docker</text>
+  <text x="350" y="195" font-size="16">单机</text>
+  <text x="550" y="195" font-size="16">低</text>
+  <text x="750" y="195" font-size="16">简单易用，适合开发</text>
+  <text x="1050" y="195" font-size="16">无集群能力</text>
+  
+  <!-- Docker Compose -->
+  <rect x="40" y="220" width="1200" height="60" fill="#ffffff" />
+  <text x="100" y="255" font-size="16" fill="#2d3748" font-weight="bold">Docker Compose</text>
+  <text x="350" y="255" font-size="16">单机多服务</text>
+  <text x="550" y="255" font-size="16">低</text>
+  <text x="750" y="255" font-size="16">快速定义多服务环境</text>
+  <text x="1050" y="255" font-size="16">仅限单机</text>
+  
+  <!-- Docker Swarm -->
+  <rect x="40" y="280" width="1200" height="60" fill="#f7fafc" />
+  <text x="100" y="315" font-size="16" fill="#2d3748" font-weight="bold">Docker Swarm</text>
+  <text x="350" y="315" font-size="16">中小集群(&lt;100节点)</text>
+  <text x="550" y="315" font-size="16">中</text>
+  <text x="750" y="315" font-size="16">内置Docker，学习成本低</text>
+  <text x="1050" y="315" font-size="16">功能较K8s弱</text>
+  
+  <!-- Kubernetes -->
+  <rect x="40" y="340" width="1200" height="60" fill="#ffffff" />
+  <text x="100" y="375" font-size="16" fill="#2d3748" font-weight="bold">Kubernetes</text>
+  <text x="350" y="375" font-size="16">大规模集群</text>
+  <text x="550" y="375" font-size="16">高</text>
+  <text x="750" y="375" font-size="16">功能全面，生态强大</text>
+  <text x="1050" y="375" font-size="16">部署维护复杂</text>
+  
+  <!-- 选择建议 -->
+  <rect x="40" y="440" width="1200" height="220" rx="10" fill="white" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="640" y="480" font-size="24" fill="#2d3748" text-anchor="middle" font-weight="bold">选择建议</text>
+  
+  <!-- 建议条目 -->
+  <circle cx="80" cy="520" r="10" fill="#4299e1"/>
+  <text x="100" y="525" font-size="18"><tspan font-weight="bold">开发/测试:</tspan> Docker + Compose</text>
+  
+  <circle cx="80" cy="560" r="10" fill="#48bb78"/>
+  <text x="100" y="565" font-size="18"><tspan font-weight="bold">中小生产环境:</tspan> Docker Swarm 或 K3s</text>
+  
+  <circle cx="80" cy="600" r="10" fill="#9f7aea"/>
+  <text x="100" y="605" font-size="18"><tspan font-weight="bold">大规模生产:</tspan> Kubernetes (EKS/AKS/GKE)</text>
+  
+  <circle cx="80" cy="640" r="10" fill="#ed8936"/>
+  <text x="100" y="645" font-size="18"><tspan font-weight="bold">资源受限场景:</tspan> Swarm 或单机Docker</text>
+  
+  <!-- 装饰元素 -->
+  <rect x="0" y="700" width="1280" height="20" fill="#2d3748"/>
+  <text x="640" y="715" font-size="12" fill="white" text-anchor="middle">Docker工具链决策指南 | 16:9比例图表</text>
+</svg>
