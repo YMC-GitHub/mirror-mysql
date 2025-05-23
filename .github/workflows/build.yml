@@ -1,0 +1,83 @@
+name: build
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "Dockerfile-alpine"
+      - "scripts/setup-alpine-*.sh"
+      - "sql-init/*.sql"
+      - ".github/workflows/build.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Images
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        alpine_version: [3.18, 3.19]
+        network: ["global", "cn"]
+        os: ["alpine"]
+    env:
+      default_os: alpine
+      default_alpine: 3.18
+      ns: ${{ secrets.DOCKER_USERNAME }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build images for os and os_version (alpine)
+        if: matrix.os  == 'alpine'
+        run: |
+          docker build --build-arg ALPINE_VERSION=$os_version -t $ns/mysql:$os_version-$os -f Dockerfile-alpine .
+          docker build --build-arg ALPINE_VERSION=$os_version --build-arg NETWORK_REGION=$network -t $ns/mysql:$os_version-$os-$network -f Dockerfile-alpine .
+        env:
+          os_version: ${{ matrix.alpine_version }}
+          os: ${{ matrix.os }}
+          network: ${{ matrix.network }}
+
+      - name: Build images with default OS
+        if: ${{ matrix.os == env.default_os }}
+        run: |
+          docker build --build-arg ALPINE_VERSION=$os_version -t $ns/mysql:$os_version -f Dockerfile-alpine .
+        env:
+          os_version: ${{ matrix.alpine_version }}
+
+      - name: Test images
+        run: |
+          docker run $ns/mysql:$os_version-$os -v
+          docker run $ns/mysql:$os_version-$os-$network -v
+        env:
+          os_version: ${{ matrix.alpine_version }}
+          os: ${{ matrix.os }}
+          network: ${{ matrix.network }}
+
+      - name: Test images with default OS
+        if: ${{ matrix.os == env.default_os }}
+        run: |
+          docker run $ns/mysql:$os_version -v
+        env:
+          os_version: ${{ matrix.alpine_version }}
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # - name: Publish images
+      #   run: |
+      #     docker push $ns/mysql:$os_version-$os
+      #   env:
+      #     os_version: ${{ matrix.alpine_version }}
+      #     os: ${{ matrix.os }}
+
+      # - name: Publish images with default OS
+      #   if: ${{ matrix.os == env.default_os }}
+      #   run: |
+      #     docker push $ns/mysql:$os_version
+      #   env:
+      #     os_version: ${{ matrix.alpine_version }}
