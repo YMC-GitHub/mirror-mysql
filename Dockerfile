@@ -1,4 +1,5 @@
-FROM alpine:3.18
+ARG ALPINE_VERSION=3.18
+FROM alpine:${ALPINE_VERSION}
 
 # 元数据
 LABEL org.opencontainers.image.authors="ymc-github <yemiancheng@gmail.com>; yemiancheng <yemiancheng1993@163.com>"
