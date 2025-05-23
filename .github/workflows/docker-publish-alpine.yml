@@ -47,7 +47,7 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-alpine
-            # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-${{ steps.get-date.outputs.date }}
+          # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.network }}-${{ steps.get-date.outputs.date }}
           build-args: |
             NETWORK_REGION=${{ matrix.network }}
           cache-from: type=gha
