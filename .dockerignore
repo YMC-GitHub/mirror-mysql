@@ -1,0 +1,8 @@
+.editorconfig
+.gitattributes
+.github
+.vscode
+.env
+secrets
+assets
+docs
