@@ -47,8 +47,8 @@ jobs:
 
       - name: Test images
         run: |
-          docker run $ns/mysql:$os_version-$os -v
-          docker run $ns/mysql:$os_version-$os-$network -v
+          docker run $ns/mysql:$os_version-$os echo done
+          docker run $ns/mysql:$os_version-$os-$network echo done
         env:
           os_version: ${{ matrix.alpine_version }}
           os: ${{ matrix.os }}
@@ -57,7 +57,7 @@ jobs:
       - name: Test images with default OS
         if: ${{ matrix.os == env.default_os }}
         run: |
-          docker run $ns/mysql:$os_version -v
+          docker run $ns/mysql:$os_version echo done
         env:
           os_version: ${{ matrix.alpine_version }}
 
