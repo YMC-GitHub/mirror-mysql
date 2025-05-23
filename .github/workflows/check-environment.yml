@@ -1,0 +1,45 @@
+name: check-environment
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/check-environment.yml"
+  workflow_dispatch:  # 支持手动触发
+env:
+  REGISTRY: ${{ secrets.DOCKER_REGISTRY || 'docker.io' }}
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.MYSQL_ALPINE_IMAGE_NAME || 'mysql' }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+jobs:
+  check-environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check Docker Buildx
+        run: docker buildx version
+
+      - name: Check Docker Login
+        run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Check Dockerfile
+        run: |
+          if [ -f "Dockerfile-alpine" ]; then
+            echo "Dockerfile-alpine exists."
+          else
+            echo "Dockerfile-alpine does not exist."
+            exit 1
+          fi
+
+      - name: Check Scripts
+        run: |
+          for script in scripts/setup-alpine-*.sh; do
+            if [ -f "$script" ]; then
+              echo "$script exists."
+            else
+              echo "$script does not exist."
+              exit 1
+            fi
+          done
