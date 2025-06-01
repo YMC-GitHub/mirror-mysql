@@ -29,6 +29,7 @@ git add README.md; git commit -m "docs(core): put usage";
 
 git add docs/opv*.md; git commit -m "docs(core): put note for opv.this.repo";
 git add docs/opv*.md; git commit -m "docs(core): rename repo name";
+git add docs/opv*.md; git commit -m "docs(core): rename repo description";
 
 git add docs/*alpine.versions.md; git commit -m "docs(core): add alpine versions";
 ```
@@ -108,7 +109,7 @@ git add Dockerfile-alpine; git commit -m "build(core): use ALPINE_VERSION as arg
 
 ```powershell
 $repo="ymc-github/mysql-docker";
-$repo_desc="a docker image base on alpine and more with mysql";
+$repo_desc="setup mysql in docker(alpine)";
 
 $repo_uname=$repo -replace "-","_" -replace "/","_";
 $repo_name=$repo  -replace ".*/","";
