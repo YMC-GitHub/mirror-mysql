@@ -31,6 +31,7 @@ git add docs/opv*.md; git commit -m "docs(core): put note for opv.this.repo";
 git add docs/opv*.md; git commit -m "docs(core): rename repo name";
 git add docs/opv*.md; git commit -m "docs(core): rename repo description";
 
+
 git add docs/*alpine.versions.md; git commit -m "docs(core): add alpine versions";
 ```
 
@@ -310,4 +311,10 @@ gh repo rename "$new_name" --repo ymc-github/mysql-docker --yes
 [ $? -eq 0 ] && git remote set-url ghg git@github.com:ymc-github/$new_name.git
 # gh repo view 
 git remote -v
+```
+
+## gh - change repo description in cli (bash)
+```bash
+repo_desc="setup mysql in docker(alpine)";
+gh repo edit $repo --description "$repo_desc"
 ```
