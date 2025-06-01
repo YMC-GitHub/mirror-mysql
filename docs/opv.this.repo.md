@@ -29,6 +29,7 @@ git add README.md; git commit -m "docs(core): put usage";
 
 git add docs/opv*.md; git commit -m "docs(core): put note for opv.this.repo";
 
+git add docs/*alpine.versions.md; git commit -m "docs(core): add alpine versions";
 ```
 
 ## opv - scripts
