@@ -28,6 +28,7 @@ git add README.md; git commit -m "docs(core): set tags format in readme";
 git add README.md; git commit -m "docs(core): put usage";
 
 git add docs/opv*.md; git commit -m "docs(core): put note for opv.this.repo";
+git add docs/opv*.md; git commit -m "docs(core): rename repo name";
 
 git add docs/*alpine.versions.md; git commit -m "docs(core): add alpine versions";
 ```
@@ -106,7 +107,7 @@ git add Dockerfile-alpine; git commit -m "build(core): use ALPINE_VERSION as arg
 ## gh - prepare vars
 
 ```powershell
-$repo="ymc-github/mirror-mysql";
+$repo="ymc-github/mysql-docker";
 $repo_desc="a docker image base on alpine and more with mysql";
 
 $repo_uname=$repo -replace "-","_" -replace "/","_";
@@ -304,7 +305,7 @@ new_name="mysql-docker";
 # in this repo project root
 # gh repo rename $new_name --yes
 # in other diretory
-gh repo rename "$new_name" --repo ymc-github/mirror-mysql --yes
+gh repo rename "$new_name" --repo ymc-github/mysql-docker --yes
 [ $? -eq 0 ] && git remote set-url ghg git@github.com:ymc-github/$new_name.git
 # gh repo view 
 git remote -v
