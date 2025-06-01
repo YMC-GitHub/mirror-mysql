@@ -30,7 +30,7 @@ git add README.md; git commit -m "docs(core): put usage";
 git add docs/opv*.md; git commit -m "docs(core): put note for opv.this.repo";
 git add docs/opv*.md; git commit -m "docs(core): rename repo name";
 git add docs/opv*.md; git commit -m "docs(core): rename repo description";
-
+git add docs/opv*.md; git commit -m "docs(core): reuse old key pairs";
 
 git add docs/*alpine.versions.md; git commit -m "docs(core): add alpine versions";
 ```
@@ -171,9 +171,19 @@ ssh-keygen -C "$email" -f $HOME/.ssh/gh_$repo_uname -t ed25519 -N '""' #done
 
 # list ssh key pair for github deploy key
 sh -c "ls -al ~/.ssh/gh_$repo_uname*"
+
+sh -c "ls -al ~/.ssh/gh_*"
+
+
 ```
 
 [ssh-keygen-in-windows-powershell-create-a-key-pair-and-avoid-pr](https://superuser.com/questions/1634427/non-interactive-ssh-keygen-in-windows-powershell-create-a-key-pair-and-avoid-pr)
+
+## gh - rename ssh key pair for github deploy key when change repo name (reuse old ssh key pair)
+```bash
+sh -c "mv ~/.ssh/gh_ymc_github_mirror_mysql ~/.ssh/gh_$repo_uname"
+sh -c "mv ~/.ssh/gh_ymc_github_mirror_mysql.pub ~/.ssh/gh_$repo_uname.pub"
+```
 
 ## gh - upload github deploy
 
@@ -194,7 +204,7 @@ Host github.com
 "@
 
 set-content -path $HOME/.ssh/config -value $txt
-ssh -T git@github.com
+# ssh -T git@github.com
 # ssh -Tv git@github.com
 ```
 
